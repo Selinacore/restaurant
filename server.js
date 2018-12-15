@@ -46,32 +46,37 @@ app.get("/", function(req, res) {
   res.sendFile(path.join(__dirname, "home.html"));
 });
 
-app.get("/add", function(req, res) {
+app.get("/reserve", function(req, res) {
   res.sendFile(path.join(__dirname, "reserve.html"));
 });
-
+app.get("/tables", function(req, res) {
+    res.sendFile(path.join(__dirname, "tables.html"));
+  });
 // Displays all tabless
 app.get("/api/tables", function(req, res) {
   return res.json(tables);
 });
+app.get("/api/waitlist", function(req, res) {
+    return res.json(waitlist);
+  });
 
 // Displays a single tables, or returns false
-app.get("/api/tables/:tables", function(req, res) {
-  var chosen = req.params.tables;
+// app.get("/api/tables/:tables", function(req, res) {
+//   var chosen = req.params.tables;
 
-  console.log(chosen);
+//   console.log(chosen);
 
-  for (var i = 0; i < tabless.length; i++) {
-    if (chosen === tabless[i].routeName) {
-      return res.json(tabless[i]);
-    }
-  }
+//   for (var i = 0; i < tabless.length; i++) {
+//     if (chosen === tabless[i].routeName) {
+//       return res.json(tabless[i]);
+//     }
+//   }
 
-  return res.json(false);
-});
+//   return res.json(false);
+// });
 
 // Create New tabless - takes in JSON input
-app.post("/api/tabless", function(req, res) {
+app.post("/api/tables", function(req, res) {
   // req.body hosts is equal to the JSON post sent from the user
   // This works because of our body parsing middleware
   var newtables = req.body;
